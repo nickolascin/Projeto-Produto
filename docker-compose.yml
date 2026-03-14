@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    image: nickolascin/sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114:latest # Nome da imagem Docker
+    ports:
+      - "8080:80"                      # Porta externa:Porta interna
+    environment:
+      - NODE_ENV=production            # Variáveis de ambiente
+    networks:
+      - minha-rede
+
+  db:
+    image: postgres:15-alpine          # Exemplo de banco de dados
+    environment:
+      POSTGRES_PASSWORD: exemplo       # Senha do banco
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persistência de dados
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+
+volumes:
+  db_data:
